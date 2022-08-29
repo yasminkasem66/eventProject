@@ -1,5 +1,5 @@
-<div>
-    <img [src]="event?.imageUrl" [alt]="event?.name" />
+<div class="thumbnail"  [routerLink]="['/events',event?.id]">
+    <img [src]="event?.imageUrl" class="event-img"  [alt]="event?.name" />
 
     <div class="well hoverwell thumbnail">
         <div class="row">
