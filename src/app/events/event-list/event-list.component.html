@@ -1,0 +1,8 @@
+<h2>Clever Jasmin</h2>
+<app-event-thumbnail [event]="event" 
+(eventClick)="onClicked($event.target)"
+#thumbnail
+></app-event-thumbnail>
+
+
+<button class="btn btn-primary"(click)="thumbnail.logFoo()">Click Me</button>
