@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +11,9 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
 import { RouterModule } from '@angular/router';
 import { CreateEventComponent } from './events/create-event/create-event.component';
 import { Error404Component } from './error404/error404.component';
-
+import { CreateSessionComponent } from './events/create-session/create-session.component';
+import { SessionlistComponent } from './events/sessionlist/sessionlist.component';
+ 
 @NgModule({
   declarations: [
     EventAppComponent,
@@ -19,10 +22,32 @@ import { Error404Component } from './error404/error404.component';
     NavComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    Error404Component
+    Error404Component,
+    CreateSessionComponent,
+    SessionlistComponent
   ],
-  imports: [BrowserModule, AppRoutingModule ,RouterModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule, RouterModule],
+  providers: [
+  ],
   bootstrap: [EventAppComponent],
 })
-export class AppModule {}
+export class AppModule { }
+
+// in routes
+// {
+//   path: "events/new",
+//   component: CreateEventComponent,
+//   canDeactivate:['canDeactivateCreateEvent']
+// },
+// in module
+// {
+  //   provide: 'canDeactivateCreateEvent',
+  // useValue: checkDirtyState
+// }
+// export function checkDirtyState(Component: CreateEventComponent) {
+//   if (Component.isDirty) {
+//     return window.confirm('you have not save this event, do you want to cancel?')
+
+//   }
+//   return true
+// }

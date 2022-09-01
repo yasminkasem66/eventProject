@@ -8,14 +8,19 @@ import { EventService } from 'src/app/@AppService/services/event.service';
   styleUrls: ['./event-details.component.scss']
 })
 export class EventDetailsComponent implements OnInit {
-  event:any;
-  
-  constructor(private eventService:EventService ,    private activeRoute: ActivatedRoute,
-    ) { }
+  event: any;
+  addMode!: boolean;
+
+  constructor(private eventService: EventService, private activeRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-    this.event= this.eventService.getEvent(+this.activeRoute.snapshot.params['id'])
+    this.event = this.eventService.getEvent(+this.activeRoute.snapshot.params['id'])
 
+  }
+
+  addSession() {
+    this.addMode = true;
   }
 
 }

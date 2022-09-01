@@ -1,0 +1,29 @@
+<div>
+  <h1>Edit Your Profile </h1>
+  <hr>
+  <div class="col-md-4">
+    <form [formGroup]="profileForm" autocomplete="off" (ngSubmit)="updateUser()" novalidate>
+      <div class="form-group" [ngClass]="{'error':validateFirstName()}">
+        <label for="firstName">First Name:</label>
+        <em
+          *ngIf="profileForm.controls.firstName?.invalid&&fc['firstName']?.errors?.required &&( profileForm.controls.firstName?.touched ||mouseenter)">Required</em>
+        <em
+          *ngIf="profileForm.controls.firstName?.invalid&&fc['firstName']?.errors?.pattern &&( profileForm.controls.firstName?.touched ||mouseenter)">Must
+          Start With A letter</em>
+        <input id="firstName" formControlName="firstName" type="text" class="form-control"
+          placeholder="First Name..." />
+      </div>
+      <div class="form-group" [ngClass]="{'error':validateLastName()}">
+        <label for=" lastName">Last Name:</label>
+        <em
+          *ngIf="profileForm.controls.lastName?.invalid &&( profileForm.controls.lastName?.touched ||mouseenter)">Required</em>
+        <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Last Name..." />
+      </div>
+      <span (mouseenter)="mouseenter=true" (mouseleave)="mouseenter=false">
+        <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancel() ">Cancel</button>
+
+      </span>
+    </form>
+  </div>
+</div>

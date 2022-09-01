@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <h3>Create Session</h3>
+  </div>
+  <div class="col-md-6">
+    <form *ngIf="createSessionForm" [formGroup]="createSessionForm" (ngSubmit)="saveSession(createSessionForm.value)"autocomplete="off">
+      <div class="form-group" >
+        <label for="sessionName" >Session Name:</label>
+        <em *ngIf="fc['name']?.invalid && (fc['name']?.touched)">Required</em>
+        <input id="sessionName"  formControlName="name" type="text" class="form-control" placeholder="session name..." />
+      </div>
+      <div class="form-group" [ngClass]="{'error':fc['presenter']?.invalid && (fc['presenter']?.touched)}">
+        <label for="eventDate">Presenter:</label>
+        <em *ngIf="fc['presenter']?.invalid && (fc['presenter']?.touched)">Required</em>
+        <input id="presenter" formControlName="presenter" type="text" class="form-control" placeholder="presenter..." />
+      </div>
+      <div class="form-group" [ngClass]="{'error':fc['duration']?.invalid && (fc['duration']?.touched)}">
+        <label for="duration">Duration:</label>
+        <em *ngIf="fc['duration']?.invalid && (fc['duration']?.touched)">Required</em>
+        <select class="form-control" formControlName="duration">
+          <option value="">select duration...</option>
+          <option [value]="1">Half Hour</option>
+          <option [value]="2">1 Hour</option>
+          <option [value]="3">Half Day</option>
+          <option [value]="4">Full Day</option>
+        </select>
+      </div>
+      <div class="form-group" [ngClass]="{'error':fc['level']?.invalid && (fc['level']?.touched)}">
+        <label for="level">Level:</label>
+        <em *ngIf="fc['level']?.invalid && (fc['level']?.touched)">Required</em>
+        <select class="form-control" formControlName="level">
+          <option value="">select level...</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="form-group" [ngClass]="{'error':fc['abstract']?.invalid && (fc['abstract']?.touched)}">
+        <label for="abstract">Abstract:</label>
+        <em *ngIf="fc['abstract']?.invalid && fc['abstract']?.touched &&fc['abstract'].errors?.required">Required</em>
+        <em *ngIf="fc['abstract']?.invalid && fc['abstract']?.touched &&fc['abstract'].errors?.maxLength">max length is {{fc['abstract'].errors?.maxLength.requiredlength}} </em>
+        <em *ngIf="fc['abstract']?.invalid && fc['abstract']?.touched &&fc['abstract'].errors?.['restrictedWord']">This a restricted Word :{{fc['abstract'].errors?.['restrictedWord']}} </em>
+        <textarea id="abstract" rows=3 class="form-control" formControlName="abstract" placeholder="abstract..."></textarea>
+      </div>
+      <button type="submit" [disabled]="createSessionForm.invalid" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-default">Cancel</button>
+    </form>
+  </div>
