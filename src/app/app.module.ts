@@ -13,7 +13,17 @@ import { CreateEventComponent } from './events/create-event/create-event.compone
 import { Error404Component } from './error404/error404.component';
 import { CreateSessionComponent } from './events/create-session/create-session.component';
 import { SessionlistComponent } from './events/sessionlist/sessionlist.component';
- 
+import { CollapsibleComponent } from './common/collapsible/collapsible.component';
+import { DurationPipe } from './common/duration.pipe';
+import { Toastr, TOASTR_TOKEN } from './@AppService/services/toastr.service';
+import { ImpleModalComponent } from './common/imple-modal/imple-modal.component';
+import { JQ_TOKEN } from './@AppService/services/jQ.service';
+import { ModalTriggerDirective } from './common/modal-trigger.directive';
+
+// let toastr: Toastr = window['toastr'];
+declare let toastr: Toastr;
+let JQuery = window['$'];
+
 @NgModule({
   declarations: [
     EventAppComponent,
@@ -24,10 +34,22 @@ import { SessionlistComponent } from './events/sessionlist/sessionlist.component
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionlistComponent
+    SessionlistComponent,
+    CollapsibleComponent,
+    DurationPipe,
+    ImpleModalComponent,
+    ModalTriggerDirective
   ],
-  imports: [BrowserModule, AppRoutingModule,FormsModule,ReactiveFormsModule, RouterModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, RouterModule],
   providers: [
+    {
+      provide: TOASTR_TOKEN,
+      useValue: toastr
+    },
+    {
+      provide:JQ_TOKEN,
+      useValue: JQuery
+    }
   ],
   bootstrap: [EventAppComponent],
 })

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ISession } from 'src/app/@AppService/models/sessions';
+ import { ISession } from 'src/app/@AppService/models/sessions';
 
 @Component({
   selector: 'app-create-session',
@@ -10,7 +10,9 @@ import { ISession } from 'src/app/@AppService/models/sessions';
 })
 export class CreateSessionComponent implements OnInit {
   createSessionForm!: FormGroup;
-  sessionModel!: ISession
+  sessionModel!: ISession ;
+  @Output() saveNewSession =new EventEmitter()
+  @Output() cancelAddSession =new EventEmitter()
 
   constructor(private router: Router
   ) { }
@@ -20,7 +22,7 @@ export class CreateSessionComponent implements OnInit {
 
   createForm() {
     this.createSessionForm = new FormGroup({
-      id: new FormControl((new Date()).getDate()),
+      // id: new FormControl((new Date()).getDate()),
       name: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z].*')]),
       presenter: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z].*')]),
       duration: new FormControl(null, Validators.required),
@@ -47,8 +49,7 @@ export class CreateSessionComponent implements OnInit {
   saveSession(formsValue: any) {
     this.sessionModel = formsValue;
     this.sessionModel.duration = Number(formsValue.duration);
-    console.log({ formsValue });
-    console.log(" this.sessionModel", this.sessionModel);
+    this.saveNewSession.emit( this.sessionModel)
 
     // this.eventService.saveEvent(formsValue)
     // this.isDirty=false;
@@ -56,8 +57,8 @@ export class CreateSessionComponent implements OnInit {
 
   }
   cancel() {
-    this.router.navigate(['events'])
-
+    // this.router.navigate(['events'])
+    this.cancelAddSession.emit()
   }
 
 }

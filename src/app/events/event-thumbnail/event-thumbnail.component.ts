@@ -18,8 +18,4 @@ export class EventThumbnailComponent implements OnInit {
     this.eventClick.emit('clicked');
   }
 
-  logFoo(){
-  console.log("ggg");
-  
-  }
 }

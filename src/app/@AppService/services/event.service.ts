@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { ISession } from './../models/sessions';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IEvent } from '../models/event';
 
@@ -9,27 +10,51 @@ export class EventService {
 
   constructor() { }
 
-  getEvents():Observable<IEvent[]>{
-    let subject=new Subject<IEvent[]>();
+  getEvents(): Observable<IEvent[]> {
+    let subject = new Subject<IEvent[]>();
     setTimeout(() => {
       subject.next(Events);
       subject.complete();
-      
+
     }, 500);
     return subject;
   }
 
-  getEvent(id:any):IEvent |undefined{
-    return Events.find(ev=>ev.id===id);
+  getEvent(id: any): IEvent {
+    return Events.find(ev => ev.id === id)!;
   }
-  saveEvent(event:any){
-    event.id=777;
-    event.sessions=[];
-     Events.push(event)
+  saveEvent(event: any) {
+    event.id = 777;
+    event.sessions = [];
+    Events.push(event)
+  }
+
+  updateEvent(event: any) {
+    let index = Events.findIndex((x) => x.id == event.id);
+    Events[index] = event;
+  }
+
+  searchSessions(searchTerm: string) {
+    let results: ISession[] = [];
+    Events.forEach((event) => {
+      var matchingSessions = event.sessions.filter((s) => 
+        s.name.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) > -1);
+        matchingSessions = matchingSessions.map((session) => {
+          session.id = event.id
+          return session
+        })
+        results = results.concat(matchingSessions)
+      })
+
+    let emitter =new EventEmitter(true);
+    setTimeout(() => {
+      emitter.emit(results)
+    }, 100);
+    return emitter
   }
 }
 
-const Events:IEvent[] = [
+const Events: IEvent[] = [
   {
     id: 1,
     name: 'Angular Connect',
@@ -42,7 +67,7 @@ const Events:IEvent[] = [
       city: 'London',
       country: 'England'
     },
-    onlineUrl:'yes',
+    onlineUrl: 'yes',
     sessions: [
       {
         id: 1,
@@ -164,7 +189,7 @@ const Events:IEvent[] = [
         abstract: `In this session, Lukas will present the 
         secret to being awesome, and how he became the President 
         of the United States through his amazing programming skills, 
-        showing how you too can be success with just attitude.`, 
+        showing how you too can be success with just attitude.`,
         voters: ['bradgreen']
       },
     ]
@@ -172,7 +197,7 @@ const Events:IEvent[] = [
   {
     id: 3,
     name: 'ng-conf 2037',
-    date:new Date('5/4/2037') ,
+    date: new Date('5/4/2037'),
     time: '9:00 am',
     price: 759.00,
     imageUrl: '/assets/images/ng-conf.png',
@@ -303,7 +328,7 @@ const Events:IEvent[] = [
   {
     id: 5,
     name: 'ng-vegas',
-    date:new Date('2/10/2037') ,
+    date: new Date('2/10/2037'),
     time: '9:00 am',
     price: 400.00,
     imageUrl: '/assets/images/ng-vegas.png',
