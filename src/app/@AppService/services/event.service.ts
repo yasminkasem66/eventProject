@@ -1,28 +1,39 @@
 import { ISession } from './../models/sessions';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { IEvent } from '../models/event';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getEvents(): Observable<IEvent[]> {
-    let subject = new Subject<IEvent[]>();
-    setTimeout(() => {
-      subject.next(Events);
-      subject.complete();
-
-    }, 500);
-    return subject;
+    return this.http.get<IEvent[]>('/api/event')
+    .pipe(catchError(this.handleError<IEvent[]>('getEvents',[])))
   }
 
-  getEvent(id: any): IEvent {
-    return Events.find(ev => ev.id === id)!;
+  getEvent(id: any):Observable<IEvent> {
+    return this.http.get<IEvent>('/api/event'+id)
+    .pipe(catchError(this.handleError<IEvent>('getEvent')))
   }
+  // getEvents(): Observable<IEvent[]> {
+  //   let subject = new Subject<IEvent[]>();
+  //   setTimeout(() => {
+  //     subject.next(Events);
+  //     subject.complete();
+
+  //   }, 500);
+  //   return subject;
+  // }
+
+  // getEvent(id: any): IEvent {
+  //   return Events.find(ev => ev.id === id)!;
+  // }
   saveEvent(event: any) {
     event.id = 777;
     event.sessions = [];
@@ -37,21 +48,29 @@ export class EventService {
   searchSessions(searchTerm: string) {
     let results: ISession[] = [];
     Events.forEach((event) => {
-      var matchingSessions = event.sessions.filter((s) => 
+      var matchingSessions = event.sessions.filter((s) =>
         s.name.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) > -1);
-        
-        matchingSessions = matchingSessions.map((session) => {
-          session.id = event.id
-          return session
-        })
-        results = results.concat(matchingSessions)
-      })
 
-    let emitter =new EventEmitter(true);
+      matchingSessions = matchingSessions.map((session) => {
+        session.id = event.id
+        return session
+      })
+      results = results.concat(matchingSessions)
+    })
+
+    let emitter = new EventEmitter(true);
     setTimeout(() => {
       emitter.emit(results)
     }, 100);
     return emitter
+  }
+
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T)
+    };
   }
 }
 

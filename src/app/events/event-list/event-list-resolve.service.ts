@@ -13,7 +13,9 @@ export class EventListREsolveer implements Resolve<any> {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // cuz we return the events in map fun so these events will get passed along to the component defined in our route 
-    return this.eventService.getEvents().pipe(map(events=>events))
+    // a resolver autometically subscribes to an observable we don't have to make a subscribe call
+    // return this.eventService.getEvents().pipe(map(events=>events))
+    return this.eventService.getEvents()
   }
 
 

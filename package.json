@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve  --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "server:dev": "node node_modules/ngf-server/server.js",
     "test": "ng test"
   },
   "private": true,
@@ -20,6 +21,7 @@
     "@angular/router": "~12.2.0",
     "bootstrap": "^5.2.0",
     "ngf-bootstrap": "0.0.5",
+    "ngf-server": "^1.0.3",
     "rxjs": "~6.6.0",
     "toastr": "^2.1.4",
     "tslib": "^2.3.0",

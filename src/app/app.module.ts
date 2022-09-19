@@ -21,6 +21,8 @@ import { JQ_TOKEN } from './@AppService/services/jQ.service';
 import { ModalTriggerDirective } from './common/modal-trigger.directive';
 import { UpvoteComponent } from './events/upvote/upvote.component';
 import { LocationvalidatorDirective } from './events/create-event/locationvalidator.directive';
+import { HttpClientModule } from '@angular/common/http';
+
 
 let toastr: Toastr = window['toastr'];
 // declare let toastr: Toastr;
@@ -44,7 +46,7 @@ let JQuery = window['$'];
     UpvoteComponent,
     LocationvalidatorDirective
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, RouterModule,],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   exports: [ModalTriggerDirective],
   providers: [
     {
@@ -52,7 +54,7 @@ let JQuery = window['$'];
       useValue: toastr
     },
     {
-      provide:JQ_TOKEN,
+      provide: JQ_TOKEN,
       useValue: JQuery
     }
   ],
