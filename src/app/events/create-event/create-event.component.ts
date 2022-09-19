@@ -9,6 +9,7 @@ import { EventService } from 'src/app/@AppService/services/event.service';
   styleUrls: ['./create-event.component.scss']
 })
 export class CreateEventComponent implements OnInit {
+  mouseenter!:boolean;
   isDirty: boolean = true;
   event!: any;
   constructor(private router: Router, private eventService: EventService) { }
@@ -17,8 +18,9 @@ export class CreateEventComponent implements OnInit {
   }
   saveEvent(formsValue: any) {
     console.log({ formsValue });
+    if(formsValue.invalid) return
 
-    this.eventService.saveEvent(formsValue)
+    this.eventService.saveEvent(formsValue.value)
     this.isDirty=false;
     this.router.navigate(['/events'])
 

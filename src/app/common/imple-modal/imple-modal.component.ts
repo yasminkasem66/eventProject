@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, Inject, ViewChild } from '@angular/core';
+import { JQ_TOKEN } from 'src/app/@AppService/services/jQ.service';
 
 @Component({
   selector: 'app-simple-modal',
@@ -7,10 +8,20 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ImpleModalComponent implements OnInit {
 
-  @Input() title!:string
-  constructor() { }
+  @Input() title!: string
+  @Input() elementId!: string
+  @Input() closeOnBodyClick!: string
+  @ViewChild('modalcontainer') modalcontainer: ElementRef;
+  constructor(@Inject(JQ_TOKEN) private $: any) { }
 
   ngOnInit(): void {
   }
 
+  closeModal() {
+    if (this.closeOnBodyClick.toLocaleLowerCase() == 'true') {
+      this.$(this.modalcontainer.nativeElement).modal('hide')
+    }
+  }
 }
+
+

@@ -1,4 +1,4 @@
-<div id="simple-modal" class="modal fade" tabindex="-1">
+<div id="{{elementId}}" #modalcontainer class="modal fade" tabindex="-1">
     <div class="modal-dailog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,7 +8,7 @@
 
                 <h4 class="moal-title">{{title}}</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" (click)="closeModal()">
                 <ng-content></ng-content>
             </div>
         </div>

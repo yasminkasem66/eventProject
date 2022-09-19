@@ -1,0 +1,12 @@
+<div class="pointable" (click)="onClick()">
+    <div class="well votingWidget">
+        <div class="votingBtton">
+            <!-- <i   class="glyphicon glyphicon-heart " [style.color]="voted?'red':'white'"></i> -->
+            <i   class="glyphicon glyphicon-heart " [style.color]="iconColor"></i>
+            <!-- <i *ngIf="!voted" class="glyphicon glyphicon-heart-empty "></i> -->
+        </div>
+        <div class="badge badge-inverse votingCount">
+            <div class="">{{count}}</div>
+        </div>
+    </div>
+</div>

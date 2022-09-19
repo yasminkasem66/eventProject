@@ -19,9 +19,11 @@ import { Toastr, TOASTR_TOKEN } from './@AppService/services/toastr.service';
 import { ImpleModalComponent } from './common/imple-modal/imple-modal.component';
 import { JQ_TOKEN } from './@AppService/services/jQ.service';
 import { ModalTriggerDirective } from './common/modal-trigger.directive';
+import { UpvoteComponent } from './events/upvote/upvote.component';
+import { LocationvalidatorDirective } from './events/create-event/locationvalidator.directive';
 
-// let toastr: Toastr = window['toastr'];
-declare let toastr: Toastr;
+let toastr: Toastr = window['toastr'];
+// declare let toastr: Toastr;
 let JQuery = window['$'];
 
 @NgModule({
@@ -38,9 +40,12 @@ let JQuery = window['$'];
     CollapsibleComponent,
     DurationPipe,
     ImpleModalComponent,
-    ModalTriggerDirective
+    ModalTriggerDirective,
+    UpvoteComponent,
+    LocationvalidatorDirective
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, RouterModule,],
+  exports: [ModalTriggerDirective],
   providers: [
     {
       provide: TOASTR_TOKEN,
