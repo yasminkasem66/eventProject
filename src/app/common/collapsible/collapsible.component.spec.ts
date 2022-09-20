@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CollapsibleComponent } from './collapsible.component';
+// import { CollapsibleComponent } from './collapsible.component';
 
-describe('CollapsibleComponent', () => {
-  let component: CollapsibleComponent;
-  let fixture: ComponentFixture<CollapsibleComponent>;
+// describe('CollapsibleComponent', () => {
+//   let component: CollapsibleComponent;
+//   let fixture: ComponentFixture<CollapsibleComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CollapsibleComponent ]
-    })
-    .compileComponents();
-  });
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ CollapsibleComponent ]
+//     })
+//     .compileComponents();
+//   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CollapsibleComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(CollapsibleComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

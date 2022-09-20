@@ -10,7 +10,7 @@ import { EventService } from './event.service';
 })
 export class VoterService {
 
-  constructor(private http: HttpClient,private eventService: EventService,) { }
+  constructor(private http: HttpClient) { }
 
   userHAsVoted(eventId: number,session: ISession, voterName: string) {
     return session.voters.some((voter) => voter === voterName)
@@ -30,7 +30,7 @@ export class VoterService {
   }
 
   deleteVoter(eventId: number,session: ISession, voterName: string) {
-    // session.voters = session.voters.filter((voter) => voter !== voterName)
+    session.voters = session.voters.filter((voter) => voter !== voterName)
     const url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`
     this.http.delete(url)
     .pipe(catchError(this.handleError<ISession[]>('deleteVoter'))).subscribe()
