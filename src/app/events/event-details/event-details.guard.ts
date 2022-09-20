@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+// not used
 export class EventDetailsGuard implements CanActivate {
   constructor(private eventService: EventService,
     private router: Router) {

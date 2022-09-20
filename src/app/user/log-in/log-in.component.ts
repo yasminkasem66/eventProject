@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 export class LogInComponent implements OnInit {
   userName!:string;
   password!:string;
-  mouseenter!:boolean;
+  mouseenter!:boolean; 
+  loginInvalid=false;
   constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
@@ -18,8 +19,13 @@ export class LogInComponent implements OnInit {
 
   login(formValue:any){
   console.log({formValue});
-  this.authService.loginUser(formValue.userName,formValue.password)
-  this.router.navigate(['events'])
+  this.authService.loginUser(formValue.userName,formValue.password).subscribe(res=>{
+    if(!res){
+      this.loginInvalid=true
+    }else{
+      this.router.navigate(['events'])
+    }
+  })
   
   }
   cancel(){

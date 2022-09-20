@@ -6,6 +6,7 @@ import { EventDetailsDeactivateGuard } from './events/create-event/event-details
 import { CreateSessionComponent } from './events/create-session/create-session.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { EventDetailsGuard } from './events/event-details/event-details.guard';
+import { EventResolveer } from './events/event-details/event-resolver.service';
 import { EventListREsolveer } from './events/event-list/event-list-resolve.service';
 import { EventListComponent } from './events/event-list/event-list.component';
 
@@ -28,7 +29,7 @@ const routes: Routes = [
   {
     path: "events/:id",
     component: EventDetailsComponent,
-    canActivate: [EventDetailsGuard]
+    resolve:{ event: EventResolveer } 
   },
   {
     path: 'user',
@@ -50,3 +51,8 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+  // {
+  //   path: "events/:id",
+  //   component: EventDetailsComponent,
+  //   canActivate: [EventDetailsGuard]
+  // },

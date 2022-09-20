@@ -20,9 +20,10 @@ export class CreateEventComponent implements OnInit {
     console.log({ formsValue });
     if(formsValue.invalid) return
 
-    this.eventService.saveEvent(formsValue.value)
-    this.isDirty=false;
-    this.router.navigate(['/events'])
+    this.eventService.saveEvent(formsValue.value).subscribe(()=>{
+      this.isDirty=false;
+      this.router.navigate(['/events'])
+    })
 
   }
   cancel() {
